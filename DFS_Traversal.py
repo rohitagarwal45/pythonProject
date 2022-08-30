@@ -9,30 +9,36 @@ class TreeNode:
 class Solution:
     def levelOrder(root):  # need to return list
 
-        q = []
-        list_queue = []
-        q1 = []
+        curr_q = []
+        next_q = []
+        result_q = []
+        lev_q = []
+
         if not root:
-            return list_queue
+            return curr_q
 
-        q.append(root)
+        curr_q.append(root)
 
-        while len(q):
+        while len(curr_q):
             # RPA Remove Print Add child Instead of print we need to append in queue
-            node = q.pop(0)
-            list_queue.append(node.val)
 
-            if not len(q):
-                q1.append(list(list_queue))
-                list_queue.pop(0)
+            for i in range(len(curr_q)):
+                node = curr_q.pop(0)
+                lev_q.append(node.val)
 
-            if node.left:
-                q.append(node.left)
-            if node.right:
-                q.append(node.right)
+                if node.left:
+                    next_q.append(node.left)
+                if node.right:
+                    next_q.append(node.right)
+
+            curr_q = next_q
+            next_q = []
+            result_q.append(lev_q)
+            lev_q = []
 
 
-        return q1 #list_queue
+
+        return result_q
     # checking git hub
 
 
